@@ -10,8 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.skcraft.launcher.launch.JavaProcessBuilder;
 import com.skcraft.launcher.model.modpack.LaunchModifier;
-import com.skcraft.launcher.model.modpack.RecommendedOptions;
-
 import lombok.Data;
 
 import java.io.File;
@@ -33,7 +31,6 @@ public class Instance implements Comparable<Instance> {
     private Date lastAccessed;
     @JsonProperty("launch")
     private LaunchModifier launchModifier;
-    private RecommendedOptions recommendedOptions;
 
     @JsonIgnore private File dir;
     @JsonIgnore private URL manifestURL;
@@ -71,7 +68,11 @@ public class Instance implements Comparable<Instance> {
      */
     @JsonIgnore
     public File getContentDir() {
-        return new File(dir, "minecraft");
+        File dir = new File(this.dir, "minecraft");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dir;
     }
 
     /**
@@ -102,16 +103,6 @@ public class Instance implements Comparable<Instance> {
     @JsonIgnore
     public File getCustomJarPath() {
         return new File(getContentDir(), "custom_jar.jar");
-    }
-
-    /**
-     * Get the file for the custom icon image.
-     *
-     * @return the icon image, which may not exist
-     */
-    @JsonIgnore
-    public File getCustomIconPath() {
-        return new File(getContentDir(), "custom_icon.png");
     }
 
     @Override

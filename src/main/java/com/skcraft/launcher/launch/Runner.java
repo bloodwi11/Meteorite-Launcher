@@ -99,7 +99,7 @@ public class Runner implements Callable<Process>, ProgressObservable {
         builder = new JavaProcessBuilder();
         assetsRoot = launcher.getAssets();
 
-        // Load manifests
+        // Load manifiests
         versionManifest = mapper.readValue(instance.getVersionPath(), VersionManifest.class);
 
         // Load assets index
@@ -142,15 +142,9 @@ public class Runner implements Callable<Process>, ProgressObservable {
         builder.setMainClass(versionManifest.getMainClass());
 
         callLaunchModifier();
-        
-        // If the content directory does not exist (i.e. pure vanilla modpack), create it
-        File instanceDir = instance.getContentDir();
-        if (!instanceDir.exists()) {
-        	instanceDir.mkdir();
-        }
 
         ProcessBuilder processBuilder = new ProcessBuilder(builder.buildCommand());
-        processBuilder.directory(instanceDir);
+        processBuilder.directory(instance.getContentDir());
         Runner.log.info("Launching: " + builder);
         checkInterrupted();
 

@@ -16,7 +16,6 @@ import com.skcraft.launcher.Launcher;
 import com.skcraft.launcher.auth.Session;
 import com.skcraft.launcher.launch.Runner;
 import com.skcraft.launcher.launch.LaunchProcessHandler;
-import com.skcraft.launcher.model.modpack.RecommendedOptions;
 import com.skcraft.launcher.persistence.Persistence;
 import com.skcraft.launcher.selfupdate.UpdateChecker;
 import com.skcraft.launcher.selfupdate.SelfUpdater;
@@ -460,20 +459,7 @@ public class LauncherFrame extends JFrame {
                     }
                 }, SwingExecutor.INSTANCE);
             } else {
-                RecommendedOptions recommended = instance.getRecommendedOptions();
-                RecommendedOptions.ConfigAdapter recommendedAdapter = recommended.new ConfigAdapter(launcher.getConfig());
-            	if (!recommendedAdapter.isAcceptable()) {
-            		boolean shouldCorrectConfig = SwingHelper.confirmDialog(this, 
-            				_("launcher.recommendedOptionsDialog",
-            						_("options.minMemory") + " " + recommended.getMinMemory() + "\n"
-            						+ _("options.maxMemory") + " " + recommended.getMaxMemory() + "\n"
-            						+ _("options.permGen") + " " + recommended.getPermGen()), 
-            				_("launcher.recommendedOptionsTitle"));
-            		if (shouldCorrectConfig) {
-            			recommendedAdapter.correctConfig();
-            		}
-            	}
-            	launch(instance, session);
+                launch(instance, session);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             SwingHelper.showErrorDialog(this, _("launcher.noInstanceError"), _("launcher.noInstanceTitle"));
