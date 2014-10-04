@@ -11,7 +11,7 @@
 
   <groupId>com.skcraft</groupId>
   <artifactId>launcher</artifactId>
-  <version>4.2.4</version>
+  <version>1.0</version>
 
   <dependencies>
     <dependency>
@@ -47,7 +47,7 @@
   </dependencies>
 
   <build>
-    <finalName>craftboot-launcher</finalName>
+    <finalName>Meteorite-Launcher</finalName>
 
     <resources>
       <resource>
